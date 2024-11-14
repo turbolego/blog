@@ -15,19 +15,19 @@
     "build": "npx @11ty/eleventy",
     "clean": "del-cli _site",
     "test": "echo \"Error: no test specified\" && exit 1",
-		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
-		"start-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/ --serve --quiet"
+		"build-ghpages": "npx @11ty/eleventy --pathprefix=/blog/",
+		"start-ghpages": "npx @11ty/eleventy --pathprefix=/blog/ --serve --quiet"
 	},
   "repository": {
     "type": "git",
-    "url": "git+https://matthiasott@github.com/matthiasott/11ty22.git"
+    "url": "git+https://turbolego@github.com/turbolego/blog.git"
   },
   "author": "Matthias Ott",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matthiasott/11ty22/issues"
+    "url": "https://github.com/turbolego/blog/issues"
   },
-  "homepage": "https://github.com/matthiasott/11ty22#readme",
+  "homepage": "https://github.com/turbolego/blog#readme",
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0-beta.1",
     "@11ty/eleventy-img": "^4.0.2",
