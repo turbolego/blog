@@ -1,117 +1,88 @@
-# eleventy-base-blog v9
+# Eleventy Plus Vite <br>🏃💨
 
-A starter repository showing how to build a blog with the [Eleventy](https://www.11ty.dev/) site generator (using the [v3.0 release](https://github.com/11ty/eleventy/releases/tag/v3.0.0)).
+A clean and fast Eleventy Starter Project with Vite.
 
-## Getting Started
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ef99b4ea-199f-497b-84c1-48c34355da8a/deploy-status)](https://app.netlify.com/sites/eleventyplusvite/deploys)
+## Features
 
-* [Want a more generic/detailed getting started guide?](https://www.11ty.dev/docs/getting-started/)
+* Eleventy v3
+* Eleventy Dev Server with live reload
+* Vite v5
+* Vite as Middleware in Eleventy Dev Server (uses [eleventy-plugin-vite](https://github.com/11ty/eleventy-plugin-vite/))
+* Eleventy build output is post-processed by [Vite](https://vitejs.dev) (with Rollup)
+* CSS/Sass post-processing with PostCSS incl. [Autoprefixer](https://github.com/postcss/autoprefixer) and cssnano
+* Uses [my own opinionated CSS/Sass structure](https://matthiasott.com/notes/how-i-structure-my-css)
+* Critical CSS, generated and inlined via [rollup-plugin-critical](https://github.com/nystudio107/rollup-plugin-critical). The main CSS file is then loaded asynchronously with [Scott Jehl’s `media` loading strategy](https://www.filamentgroup.com/lab/load-css-simpler/) (adds `media="print"` and swaps to `media="all"` once loaded)
+* Example implementation of a web font loading strategy ([critical FOFT with preload](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-preload))
+* Basic fluid typography based on [Utopia](https://utopia.fyi)
+* Basic dark mode support (using `prefers-color-scheme` and CSS Custom Properties)
+* Polyfill for [focus-visible](https://matthiasott.com/notes/focus-visible-is-here)
+* RSS feed 🧡
+* XML sitemap
+* Four Hundos Lighthouse score 💯💯💯💯
 
-1. Make a directory and navigate to it:
+## Getting started
 
-```
-mkdir my-blog-name
-cd my-blog-name
-```
+Start by [generating a new repository based on this project](https://github.com/matthiasott/eleventy-plus-vite/generate).
 
-2. Clone this Repository
+After cloning (or downloading) the repository to your local machine, install all dependencies with the command
 
-```
-git clone https://github.com/11ty/eleventy-base-blog.git .
-```
-
-_Optional:_ Review `eleventy.config.js` and `_data/metadata.js` to configure the site’s options and data.
-
-3. Install dependencies
-
-```
+```sh
 npm install
 ```
 
-4. Run Eleventy
+## Run dev server
 
-Generate a production-ready build to the `_site` folder:
+The project comes with Eleventy’s built-in development server. You can start the server with
 
-```
+```sh
+npm start
+````
+
+or
+
+```sh
+npx @11ty/eleventy --serve
+````
+
+
+## Build
+
+To trigger a production build, use
+
+```sh
+npm run build
+````
+
+or
+
+```sh
 npx @11ty/eleventy
 ```
 
-Or build and host on a local development server:
+## Deploy a fork of this template to Netlify
 
-```
-npx @11ty/eleventy --serve
-```
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/matthiasott/eleventy-plus-vite)
 
-Or you can run [debug mode](https://www.11ty.dev/docs/debugging/) to see all the internals.
+## CSS
+By default, this starter project uses Sass with an opinionated folder structure. Feel free to replace this structure with your own. If you prefer to write standards-compliant, good old plain CSS, this is also supported. Nesting is then possible via the [PostCSS Nesting plugin](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-nesting), following the [CSS Nesting specification](https://drafts.csswg.org/css-nesting-1/).
 
-## Features
+[Autoprefixer](https://github.com/postcss/autoprefixer) adds necessary browser prefixes. The [browserslist](https://github.com/browserslist/browserslist) settings can be adjusted in `package.json`.
 
-- Using [Eleventy v3](https://github.com/11ty/eleventy/releases/tag/v3.0.0) with zero-JavaScript output.
-	- Content is exclusively pre-rendered (this is a static site).
-	- Can easily [deploy to a subfolder without changing any content](https://www.11ty.dev/docs/plugins/html-base/)
-	- All URLs are decoupled from the content’s location on the file system.
-	- Configure templates via the [Eleventy Data Cascade](https://www.11ty.dev/docs/data-cascade/)
-- **Performance focused**: four-hundos Lighthouse score out of the box!
-	- _0 Cumulative Layout Shift_
-	- _0ms Total Blocking Time_
-- Local development live reload provided by [Eleventy Dev Server](https://www.11ty.dev/docs/dev-server/).
-- Content-driven [navigation menu](https://www.11ty.dev/docs/plugins/navigation/)
-- Fully automated [Image optimization](https://www.11ty.dev/docs/plugins/image/)
-	- Zero-JavaScript output.
-	- Support for modern image formats automatically (e.g. AVIF and WebP)
-	- Processes images on-request during `--serve` for speedy local builds.
-	- Prefers `<img>` markup if possible (single image format) but switches automatically to `<picture>` for multiple image formats.
-	- Automated `<picture>` syntax markup with `srcset` and optional `sizes`
-	- Includes `width`/`height` attributes to avoid [content layout shift](https://web.dev/cls/).
-	- Includes `loading="lazy"` for native lazy loading without JavaScript.
-	- Includes [`decoding="async"`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding)
-	- Images can be co-located with blog post files.
-- Per page CSS bundles [via `eleventy-plugin-bundle`](https://github.com/11ty/eleventy-plugin-bundle).
-- Built-in [syntax highlighter](https://www.11ty.dev/docs/plugins/syntaxhighlight/) (zero-JavaScript output).
-- Draft content: use `draft: true` to mark any template as a draft. Drafts are **only** included during `--serve`/`--watch` and are excluded from full builds. This is driven by the `addPreprocessor` configuration API in `eleventy.config.js`. Schema validator will show an error if non-boolean value is set in data cascade.
-- Blog Posts
-	- Automated next/previous links
-	- Accessible deep links to headings
-- Generated Pages
-	- Home, Archive, and About pages.
-	- [Atom feed included (with easy one-line swap to use RSS or JSON](https://www.11ty.dev/docs/plugins/rss/)
-	- `sitemap.xml`
-	- Zero-maintenance tag pages ([View on the Demo](https://eleventy-base-blog.netlify.app/tags/))
-	- Content not found (404) page
+## Roadmap
+* Add more base styles and a demo page that shows example styles and components
+* Add a toggle button for the dark mode theme
+* More advanced base styles for modern CSS layout
+* Webmention/IndieWeb support
 
-## Demos
+## Feedback
 
-- [Netlify](https://eleventy-base-blog.netlify.app/)
-- [Vercel](https://demo-base-blog.11ty.dev/)
-- [Cloudflare Pages](https://eleventy-base-blog-d2a.pages.dev/)
-- [Remix on Glitch](https://glitch.com/~11ty-eleventy-base-blog)
-- [GitHub Pages](https://11ty.github.io/eleventy-base-blog/)
+Please provide feedback! 🤗 Ideally by [filing an issue here](https://github.com/matthiasott/eleventy-plus-vite/issues) – or via a pull request.
+## Thank you!
 
-## Deploy this to your own site
+This starter project would not have been possible without the many great sites and projects I was able to learn from, use as inspiration, and shamelessly copy code from:
 
-Deploy this Eleventy site in just a few clicks on these services:
-
-- Read more about [Deploying an Eleventy project](https://www.11ty.dev/docs/deployment/) to the web.
-- [Deploy this to **Netlify**](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/eleventy-base-blog)
-- [Deploy this to **Vercel**](https://vercel.com/import/project?template=11ty%2Feleventy-base-blog)
-- Look in `.github/workflows/gh-pages.yml.sample` for information on Deploying to **GitHub Pages**.
-- [Try it out on **Stackblitz**](https://stackblitz.com/github/11ty/eleventy-base-blog)
-
-### Implementation Notes
-
-- `content/about/index.md` is an example of a content page.
-- `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
-- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your front matter to add a template to the top level site navigation. This is in use on `content/index.njk` and `content/about/index.md`.
-- Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
-- The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
-- This project uses three [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
-	- `_includes/layouts/base.njk`: the top level HTML structure
-	- `_includes/layouts/home.njk`: the home page template (wrapped into `base.njk`)
-	- `_includes/layouts/post.njk`: the blog post template (wrapped into `base.njk`)
-- `_includes/postslist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `content/index.njk` has an example of how to use it.
-
-#### Content Security Policy
-
-If your site enforces a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (as public-facing sites should), you have a few choices (pick one):
-
-1. In `base.njk`, remove `<style>{% getBundle "css" %}</style>` and uncomment `<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">`
-2. Configure the server with the CSP directive `style-src: 'unsafe-inline'` (less secure).
+* Zach Leatherman [zachleat.com](https://github.com/zachleat/zachleat.com)
+* Max Böck’s [Eleventastic](https://github.com/maxboeck/eleventastic)
+* Stephanie Eckles’s [11ty Netlify Jumpstart](https://github.com/5t3ph/11ty-netlify-jumpstart)
+* Miriam Suzanne [miriamsuzanne.com](https://www.miriamsuzanne.com)
