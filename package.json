@@ -15,8 +15,8 @@
     "build": "npx @11ty/eleventy",
     "clean": "del-cli _site",
     "test": "echo \"Error: no test specified\" && exit 1",
-		"build-ghpages": "npx @11ty/eleventy --pathprefix=/",
-		"start-ghpages": "npx @11ty/eleventy --pathprefix=/ --serve --quiet"
+		"build-ghpages": "npx @11ty/eleventy --pathprefix=/blog/",
+		"start-ghpages": "npx @11ty/eleventy --pathprefix=/blog/ --serve --quiet"
 	},
   "repository": {
     "type": "git",
