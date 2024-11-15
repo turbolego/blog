@@ -1,6 +1,6 @@
 module.exports = function (eleventyConfig) {
     // Pass through CMS files
-    eleventyConfig.addPassthroughCopy("admin");
+    eleventyConfig.addPassthroughCopy({ "admin": "blog/admin" });
 
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
