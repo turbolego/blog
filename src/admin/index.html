@@ -33,48 +33,33 @@
 <!-- Load the working version of Netlify Identity Widget -->
 <script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.9.2/build/netlify-identity-widget.min.js"></script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-       // Initialize Netlify Identity
-       netlifyIdentity.init({
-  url: "https://turbolego.netlify.app/.netlify/identity" // The correct URL for your Netlify Identity instance
-});
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    netlifyIdentity.init({
+      url: "https://turbolego.netlify.app/.netlify/identity" // Your Netlify site
+    });
 
-// Check if there's a recovery token in the URL
-		const urlParams = new URLSearchParams(window.location.search);
-		const recoveryToken = urlParams.get('recovery_token');
-		if (recoveryToken) {
-			console.log("Password recovery token found:", recoveryToken);
-			// Trigger the password recovery flow if the recovery_token exists
-			netlifyIdentity.open('recover');
-		}
+    netlifyIdentity.on('login', (user) => {
+      console.log("User logged in:", user);
+      window.location.href = '/admin/';
+    });
 
-// Listen for login event
-		netlifyIdentity.on('login', (user) => {
-			console.log("User logged in:", user);
-			// After login, you can redirect to your admin page or dashboard
-			window.location.href = '/admin';
-		});
+    netlifyIdentity.on('logout', () => {
+      console.log("User logged out");
+      window.location.href = '/';
+    });
 
-// Listen for logout event
-		netlifyIdentity.on('logout', () => {
-			console.log("User logged out");
-			window.location.href = '/';
-		});
-		CMS.init({
-			config: {
-				backend: {
-					name: "git-gateway",
-					branch: "main"
-				},
-				media_folder: "src/images/uploads",
-				public_folder: "/images/uploads",
-				identity: {
-					url: "https://turbolego.netlify.app", // Set your Netlify Identity URL here
-				},
-			}
-		});
-	});
+    CMS.init({
+      config: {
+        backend: {
+          name: "git-gateway",
+          branch: "main"
+        },
+        media_folder: "src/images/uploads",
+        public_folder: "/images/uploads"
+      }
+    });
+  });
 </script>
 </body>
 </html>
