@@ -22,5 +22,10 @@ module.exports = function (eleventyConfig) {
             output: "_site",
         },
         htmlTemplateEngine: "njk",
+        // Configure permalinks for posts
+        markdownTemplateEngine: "njk",
+        // Configure output paths
+        passthroughFileCopy: true,
+        pathPrefix: "/blog", // This sets the path prefix for all URLs, including post URLs
     };
 };

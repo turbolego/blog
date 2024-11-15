@@ -1,40 +1,73 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Content Manager</title>
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin-top: 20%;
-      }
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #0073e6;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #005bb5;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Welcome to the Content Manager</h1>
-    <p>Click the button below to log in:</p>
-    <button id="loginButton">Log in to CMS</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 20%;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005bb5;
+    }
+  </style>
+  <title>Admin Panel</title>
+</head>
+<body>
+  <div id="nc-root"></div>
 
-    <script>
-      // Handle the login button click
-      document.getElementById('loginButton').addEventListener('click', () => {
-        // Redirect to Netlify CMS dashboard
-        window.location.href = "/blog/admin/#/";
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
+  <!-- Load the working version of Netlify Identity Widget -->
+  <script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.9.2/build/netlify-identity-widget.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+       // Initialize Netlify Identity
+       netlifyIdentity.init();
+
+// Check if there's a recovery token in the URL
+const urlParams = new URLSearchParams(window.location.search);
+const recoveryToken = urlParams.get('recovery_token');
+if (recoveryToken) {
+  console.log("Password recovery token found:", recoveryToken);
+  // Trigger the password recovery flow if the recovery_token exists
+  netlifyIdentity.open('recover');
+}
+
+// Listen for login event
+netlifyIdentity.on('login', (user) => {
+  console.log("User logged in:", user);
+  // After login, you can redirect to your admin page or dashboard
+  window.location.href = '/admin';
+});
+
+// Listen for logout event
+netlifyIdentity.on('logout', () => {
+  console.log("User logged out");
+  window.location.href = '/';
+});
+      CMS.init({
+        config: {
+          backend: {
+            name: "git-gateway",
+            branch: "main"
+          },
+          media_folder: "src/images/uploads",
+          public_folder: "/images/uploads"
+        }
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>

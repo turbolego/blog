@@ -6,12 +6,12 @@ media_folder: "src/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "posts"
+  - name: "posts"  # Ensure this name is unique and not duplicated in any other config file
     label: "Posts"
-    folder: "src/posts"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    folder: "src/posts"  # Folder where your post content is stored
+    create: true  # Allow new posts to be created
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"  # Slug format for new posts
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }  # Title field for each post
+      - { label: "Publish Date", name: "date", widget: "datetime" }  # Publish date for each post
+      - { label: "Body", name: "body", widget: "markdown" }  # Markdown body content for each post
