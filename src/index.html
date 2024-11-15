@@ -27,8 +27,10 @@
     <a href="{{ pagination.href.previous }}">Previous</a>
     {% endif %}
     
-    {% if pagination.pageNumber < pagination.pages.length - 1 %}
+    {% assign lastPageNumber = pagination.pages | size | minus: 1 %}
+    
+    {% if pagination.pageNumber < lastPageNumber %}
     <a href="{{ pagination.href.next }}">Next</a>
-    {% endif %}    
+    {% endif %}
 </body>
 </html>
