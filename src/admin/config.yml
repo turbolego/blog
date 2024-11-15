@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   branch: main
-  identity_url: "https://turbolego.netlify.app/.netlify/identity"
+  identity_url: "https://turbolego.github.io/.netlify/identity" # Redirected to Netlify
 
 media_folder: "src/images/uploads"
 public_folder: "/images/uploads"

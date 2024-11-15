@@ -36,8 +36,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     netlifyIdentity.init({
-      url: "https://turbolego.netlify.app/.netlify/identity" // Your Netlify site
-    });
+  url: "https://turbolego.github.io/.netlify/identity" // Redirected to Netlify
+});
 
     netlifyIdentity.on('login', (user) => {
       console.log("User logged in:", user);
