@@ -37,7 +37,7 @@ jobs:
       - name: Add _site files to gh-pages branch
         run: |
           # Ensure we add only the files from the _site directory
-          git add _site/*
+          git add -f _site/*
         
       - name: Commit and push changes to gh-pages
         run: |
