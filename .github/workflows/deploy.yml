@@ -6,7 +6,7 @@ on:
       - main  # Deploy only when changes are pushed to the main branch
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,24 +28,26 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-        
-      - name: Create gh-pages branch if not exists
+
+      - name: Create or switch to gh-pages branch
         run: |
           git fetch
           git checkout -B gh-pages
 
-      - name: Pull remote changes from gh-pages
+      - name: Remove old content from gh-pages branch
         run: |
-          git pull origin gh-pages --rebase || echo "No changes to pull"
+          git rm -rf . || echo "No files to remove"
 
-      - name: Add _site files to gh-pages branch
+      - name: Copy built site to root of gh-pages
         run: |
-          # Ensure we add only the files from the _site directory
-          git add -f _site/*
-        
-      - name: Commit and push changes to gh-pages
+          cp -r _site/* ./
+
+      - name: Add and commit changes
         run: |
+          git add .
           git commit -m "Deploy to GitHub Pages" || echo "No changes to commit"
-          git push origin gh-pages
+
+      - name: Push changes to gh-pages branch
+        run: git push origin gh-pages --force
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
