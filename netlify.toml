@@ -1,8 +1,0 @@
-[build]
-  publish = "_site"
-  command = "npx @11ty/eleventy"
-
-[[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 200
