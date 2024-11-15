@@ -22,5 +22,8 @@ module.exports = function (eleventyConfig) {
             output: "_site",
         },
         htmlTemplateEngine: "njk",
+        pathPrefix: "/blog/", // Ensure paths align with the GitHub Pages subdirectory
+        // Add this line to ensure posts have .html in their paths
+        templateFormats: ["html", "md", "njk"],
     };
 };
