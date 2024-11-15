@@ -1,5 +1,3 @@
-const { DateTime } = require("luxon");
-
 module.exports = function (eleventyConfig) {
     // Pass through CMS files
     eleventyConfig.addPassthroughCopy("admin");
@@ -12,6 +10,7 @@ module.exports = function (eleventyConfig) {
     });
 
     // Add custom date filter
+    const { DateTime } = require("luxon");
     eleventyConfig.addFilter("date", (dateObj, format = "yyyy-MM-dd") => {
         return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(format);
     });
@@ -22,8 +21,6 @@ module.exports = function (eleventyConfig) {
             output: "_site",
         },
         htmlTemplateEngine: "njk",
-        pathPrefix: "/blog/", // Ensure paths align with the GitHub Pages subdirectory
-        // Add this line to ensure posts have .html in their paths
-        templateFormats: ["html", "md", "njk"],
+        pathPrefix: "/blog", // Add this line to prefix paths with /blog
     };
 };
