@@ -34,6 +34,10 @@ jobs:
           git fetch
           git checkout -B gh-pages
 
+      - name: Pull remote changes from gh-pages
+        run: |
+          git pull origin gh-pages --rebase || echo "No changes to pull"
+
       - name: Add _site files to gh-pages branch
         run: |
           # Ensure we add only the files from the _site directory
