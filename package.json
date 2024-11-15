@@ -2,11 +2,11 @@
     "name": "my-blog",
     "version": "1.0.0",
     "scripts": {
-      "start": "eleventy --serve",
-      "build": "eleventy"
+        "start": "eleventy --serve",
+        "build": "eleventy"
     },
     "dependencies": {
-      "@11ty/eleventy": "^1.0.0"
+        "@11ty/eleventy": "^1.0.0",
+        "luxon": "^3.5.0"
     }
-  }
-  
+}
