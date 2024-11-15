@@ -33,15 +33,12 @@
 <!-- Load the working version of Netlify Identity Widget -->
 <script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.9.2/build/netlify-identity-widget.min.js"></script>
 
-<script>
-	import netlifyIdentity from "@11ty/eleventy";
-	import CMS from "@11ty/eleventy";
-
-	document.addEventListener("DOMContentLoaded", function () {
-		// Initialize Netlify Identity
-		netlifyIdentity.init({
-			url: "https://turbolego.netlify.app" // The correct URL for your Netlify Identity instance
-		});
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+       // Initialize Netlify Identity
+       netlifyIdentity.init({
+  url: "https://turbolego.netlify.app/.netlify/identity" // The correct URL for your Netlify Identity instance
+});
 
 // Check if there's a recovery token in the URL
 		const urlParams = new URLSearchParams(window.location.search);
