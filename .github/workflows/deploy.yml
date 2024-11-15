@@ -25,8 +25,10 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _site  # Folder where 11ty outputs the site
-          publish_branch: gh-pages
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git remote set-url origin https://github-actions[bot]:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin gh-pages
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
