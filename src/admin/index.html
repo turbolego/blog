@@ -64,7 +64,10 @@ netlifyIdentity.on('logout', () => {
             branch: "main"
           },
           media_folder: "src/images/uploads",
-          public_folder: "/images/uploads"
+          public_folder: "/images/uploads",
+          identity: {
+        url: "https://turbolego.netlify.app", // Set your Netlify Identity URL here
+      },
         }
       });
     });
