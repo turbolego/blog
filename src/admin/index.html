@@ -33,9 +33,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.9.2/build/netlify-identity-widget.min.js"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-			// Use the Netlify Identity URL directly
 			netlifyIdentity.init({
-				url: "https://turbolego.netlify.app/.netlify/identity",
+				url: "https://turbolego.netlify.app/.netlify/identity", // Netlify Identity URL
 			});
 
 			netlifyIdentity.on('login', (user) => {
