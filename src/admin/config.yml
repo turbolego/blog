@@ -4,7 +4,7 @@ backend:
   identity_url: "https://turbolego.netlify.app/.netlify/identity"  # Updated for Netlify deployment
 
 media_folder: "src/images/uploads"
-public_folder: "/images/uploads"
+public_folder: "/blog/images/uploads"
 
 collections:
   - name: "posts"  # Ensure this name is unique and not duplicated in any other config file
