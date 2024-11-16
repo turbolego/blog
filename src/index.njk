@@ -20,6 +20,11 @@ pagination:
         <li>
             <a href="{{ post.url | url }}">{{ post.data.title }}</a> - 
             <time>{{ post.date | date("yyyy-MM-dd") }}</time>
+
+            <!-- Display Post Content with Image URL Prefix Handling -->
+            <div>
+                {{ post.templateContent | safe }}
+            </div>
         </li>
         {% endfor %}
     </ul>    
