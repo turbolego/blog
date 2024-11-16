@@ -1,7 +1,7 @@
 const { DateTime } = require("luxon");
 
 module.exports = function (eleventyConfig) {
-    // Pass through CMS files from 'src/admin' and '_redirects'
+    // Pass through CMS files and images
     eleventyConfig.addPassthroughCopy("src/images");
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
@@ -26,6 +26,6 @@ module.exports = function (eleventyConfig) {
         htmlTemplateEngine: "njk",
         markdownTemplateEngine: "njk",
         passthroughFileCopy: true,
-        pathPrefix: "/blog", // This sets the path prefix for all URLs, including post URLs
+        pathPrefix: "/blog", // Apply prefix to all URLs
     };
 };
