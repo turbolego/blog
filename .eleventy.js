@@ -1,13 +1,19 @@
 const { DateTime } = require("luxon");
 
 module.exports = function (eleventyConfig) {
-    // Pass through CMS files and images
-    eleventyConfig.addPassthroughCopy("src/images");
+    // Check for Netlify deployment using environment variable
+    const isNetlify = process.env.NETLIFY === 'true';
+
+    // Set the path prefix for images and assets based on the environment
+    const imagePrefix = isNetlify ? '/blog' : '';  // '/blog' only on GitHub Pages
+    const pathPrefix = isNetlify ? '' : '/blog';  // Use '/blog' for GitHub Pages
+
+    // Pass through CMS files and images with the conditional prefix for images
+    eleventyConfig.addPassthroughCopy({
+        "src/images": imagePrefix + "/images",  // Apply the image prefix
+    });
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
-    
-    // Set the path prefix based on the environment
-    const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on Netlify
 
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
@@ -29,6 +35,6 @@ module.exports = function (eleventyConfig) {
         htmlTemplateEngine: "njk",
         markdownTemplateEngine: "njk",
         passthroughFileCopy: true,
-        pathPrefix: pathPrefix, // Apply prefix to all URLs
+        pathPrefix: pathPrefix, // Apply the path prefix for URLs
     };
 };
