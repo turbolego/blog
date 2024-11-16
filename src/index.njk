@@ -21,9 +21,9 @@ pagination:
             <a href="{{ post.url | url }}">{{ post.data.title }}</a> - 
             <time>{{ post.date | date("yyyy-MM-dd") }}</time>
 
-            <!-- Apply image path prefix filter to the post content -->
+            <!-- Display Post Content with Image URL Prefix Handling -->
             <div>
-                {{ post.templateContent | safe | imagePathPrefix }}
+                {{ post.templateContent | safe }}
             </div>
         </li>
         {% endfor %}

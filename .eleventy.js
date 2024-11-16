@@ -4,11 +4,19 @@ module.exports = function (eleventyConfig) {
     // Pass through CMS files and images
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
-    
+
     // Set the path prefix based on the environment
     const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
 
-    // Pass through images with the correct path prefix
+    // Add a custom filter to adjust image URLs based on the environment
+    eleventyConfig.addFilter("imagePathPrefix", (url) => {
+        if (url && !url.startsWith("http")) {
+            return process.env.NETLIFY ? url : "/blog" + url; // Add '/blog' prefix only on GitHub Pages
+        }
+        return url;
+    });
+
+    // Pass through images with the prefix
     eleventyConfig.addPassthroughCopy({
         "src/images": pathPrefix + "/images",  // Apply the image prefix
     });
@@ -23,12 +31,6 @@ module.exports = function (eleventyConfig) {
     // Add custom date filter
     eleventyConfig.addFilter("date", (dateObj, format = "yyyy-MM-dd") => {
         return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(format);
-    });
-
-    // Update image URLs to include the path prefix
-    eleventyConfig.addFilter("imagePathPrefix", function (imageUrl) {
-        const prefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
-        return prefix + imageUrl;
     });
 
     return {
