@@ -7,6 +7,9 @@ module.exports = function (eleventyConfig) {
     // Set the path prefix for images and assets based on the environment
     const pathPrefix = isNetlify ? '' : '/blog';  // Use '/blog' only on GitHub Pages
 
+    // Log the pathPrefix to debug
+    console.log("Path Prefix:", pathPrefix);
+
     // Pass through CMS files and images with the conditional prefix for images
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
@@ -28,12 +31,13 @@ module.exports = function (eleventyConfig) {
         return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(format);
     });
 
-    // Modify image paths in markdown files
+    // Modify image paths in markdown and HTML files and apply prefix
     eleventyConfig.addFilter("imagePathPrefix", (url) => {
+        // Only apply the prefix to image URLs
         if (url.startsWith("/images/")) {
             return pathPrefix + url;
         }
-        return url;  // No change if the URL doesn't match the expected pattern
+        return url;  // Return the URL unchanged if it's not an image path
     });
 
     return {
