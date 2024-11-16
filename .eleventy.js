@@ -8,7 +8,7 @@ module.exports = function (eleventyConfig) {
     
     // Set the path prefix based on the environment
     const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
-    const pathPrefix2 = process.env.NETLIFY ? '/blog' : ''; // Use '/blog' only on GitHub Pages
+    const pathPrefix2 = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
 
     eleventyConfig.addPassthroughCopy({
         "src/images": pathPrefix2 + "/images",  // Apply the image prefix
