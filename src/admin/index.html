@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Panel</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -24,42 +25,40 @@
 			background-color: #005bb5;
 		}
 	</style>
-	<title>Admin Panel</title>
 </head>
 <body>
-<div id="nc-root"></div>
+	<div id="nc-root"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
-<!-- Load the working version of Netlify Identity Widget -->
-<script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.9.2/build/netlify-identity-widget.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.9.2/build/netlify-identity-widget.min.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			// Use the Netlify Identity URL directly
+			netlifyIdentity.init({
+				url: "https://turbolego.netlify.app/.netlify/identity",
+			});
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    netlifyIdentity.init({
-  url: "https://turbolego.github.io/.netlify/identity" // Redirected to Netlify
-});
+			netlifyIdentity.on('login', (user) => {
+				console.log("User logged in:", user);
+				window.location.href = '/admin/';
+			});
 
-    netlifyIdentity.on('login', (user) => {
-      console.log("User logged in:", user);
-      window.location.href = '/admin/';
-    });
+			netlifyIdentity.on('logout', () => {
+				console.log("User logged out");
+				window.location.href = '/';
+			});
 
-    netlifyIdentity.on('logout', () => {
-      console.log("User logged out");
-      window.location.href = '/';
-    });
-
-    CMS.init({
-      config: {
-        backend: {
-          name: "git-gateway",
-          branch: "main"
-        },
-        media_folder: "src/images/uploads",
-        public_folder: "/images/uploads"
-      }
-    });
-  });
-</script>
+			CMS.init({
+				config: {
+					backend: {
+						name: "git-gateway",
+						branch: "main",
+					},
+					media_folder: "src/images/uploads",
+					public_folder: "/images/uploads",
+				},
+			});
+		});
+	</script>
 </body>
 </html>

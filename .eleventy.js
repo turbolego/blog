@@ -4,9 +4,6 @@ module.exports = function (eleventyConfig) {
     // Pass through CMS files from 'src/admin'
     eleventyConfig.addPassthroughCopy("src/admin");
 
-    // Pass through the _redirects file
-    eleventyConfig.addPassthroughCopy("src/_redirects");
-
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
         return collectionApi.getFilteredByGlob("src/posts/*.md").sort((a, b) => {
