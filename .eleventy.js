@@ -7,7 +7,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/_redirects");
     
     // Set the path prefix based on the environment
-    const pathPrefix = process.env.NETLIFY ? '/blog' : ''; // Use '/blog' only on Netlify
+    const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on Netlify
 
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
