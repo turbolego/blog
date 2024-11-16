@@ -7,7 +7,9 @@ module.exports = function (eleventyConfig) {
     // Set the path prefix for images and assets based on the environment
     const imagePrefix = isNetlify ? '' : '/blog';  // '/blog' only on GitHub Pages
     const pathPrefix = isNetlify ? '' : '/blog';  // Use '/blog' for GitHub Pages
-
+    console.log('isNetlify: ', isNetlify)
+    console.log('imagePrefix: ', imagePrefix)
+    console.log('pathPrefix: ', pathPrefix)
     // Pass through CMS files and images with the conditional prefix for images
     eleventyConfig.addPassthroughCopy({
         "src/images": imagePrefix + "/images",  // Apply the image prefix
