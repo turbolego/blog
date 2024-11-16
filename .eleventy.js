@@ -4,6 +4,9 @@ module.exports = function (eleventyConfig) {
     // Pass through CMS files from 'src/admin'
     eleventyConfig.addPassthroughCopy("src/admin");
 
+    // Pass through the _redirects file
+    eleventyConfig.addPassthroughCopy("src/_redirects");
+
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
         return collectionApi.getFilteredByGlob("src/posts/*.md").sort((a, b) => {
@@ -22,9 +25,7 @@ module.exports = function (eleventyConfig) {
             output: "_site",
         },
         htmlTemplateEngine: "njk",
-        // Configure permalinks for posts
         markdownTemplateEngine: "njk",
-        // Configure output paths
         passthroughFileCopy: true,
         pathPrefix: "/blog", // This sets the path prefix for all URLs, including post URLs
     };
