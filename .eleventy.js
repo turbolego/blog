@@ -5,6 +5,9 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/images");
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
+    
+    // Set the path prefix based on the environment
+    const pathPrefix = process.env.NETLIFY ? '/blog' : ''; // Use '/blog' only on Netlify
 
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
@@ -26,6 +29,6 @@ module.exports = function (eleventyConfig) {
         htmlTemplateEngine: "njk",
         markdownTemplateEngine: "njk",
         passthroughFileCopy: true,
-        pathPrefix: "/blog", // Apply prefix to all URLs
+        pathPrefix: pathPrefix, // Apply prefix to all URLs
     };
 };
