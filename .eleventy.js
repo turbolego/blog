@@ -2,12 +2,16 @@ const { DateTime } = require("luxon");
 
 module.exports = function (eleventyConfig) {
     // Pass through CMS files and images
-    eleventyConfig.addPassthroughCopy("src/images");
+    // eleventyConfig.addPassthroughCopy("src/images");
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
     
     // Set the path prefix based on the environment
     const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
+
+    eleventyConfig.addPassthroughCopy({
+        "src/images": pathPrefix + "/images",  // Apply the image prefix
+    });
 
     // Add "posts" collection
     eleventyConfig.addCollection("posts", function (collectionApi) {
