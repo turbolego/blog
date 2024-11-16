@@ -1,20 +1,14 @@
 const { DateTime } = require("luxon");
 
 module.exports = function (eleventyConfig) {
-    // Check for Netlify deployment using environment variable
-    const isNetlify = process.env.NETLIFY === 'true';
-
-    // Set the path prefix for images and assets based on the environment
-    const pathPrefix = isNetlify ? '' : '/blog';  // Use '/blog' only on GitHub Pages
-
-    // Log the pathPrefix to debug
-    console.log("Path Prefix:", pathPrefix);
-
-    // Pass through CMS files and images with the conditional prefix for images
+    // Pass through CMS files and images
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
+    
+    // Set the path prefix based on the environment
+    const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
 
-    // Ensure that images are copied with the correct pathPrefix
+    // Pass through images with the correct path prefix
     eleventyConfig.addPassthroughCopy({
         "src/images": pathPrefix + "/images",  // Apply the image prefix
     });
@@ -31,13 +25,10 @@ module.exports = function (eleventyConfig) {
         return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(format);
     });
 
-    // Modify image paths in markdown and HTML files and apply prefix
-    eleventyConfig.addFilter("imagePathPrefix", (url) => {
-        // Only apply the prefix to image URLs
-        if (url.startsWith("/images/")) {
-            return pathPrefix + url;
-        }
-        return url;  // Return the URL unchanged if it's not an image path
+    // Update image URLs to include the path prefix
+    eleventyConfig.addFilter("imagePathPrefix", function (imageUrl) {
+        const prefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
+        return prefix + imageUrl;
     });
 
     return {
