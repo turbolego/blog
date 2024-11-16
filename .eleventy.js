@@ -1,17 +1,19 @@
 const { DateTime } = require("luxon");
 
 module.exports = function (eleventyConfig) {
-    // Pass through CMS files and images
-    // eleventyConfig.addPassthroughCopy("src/images");
+    // Check for Netlify deployment using environment variable
+    const isNetlify = process.env.NETLIFY === 'true';
+
+    // Set the path prefix for images and assets based on the environment
+    const pathPrefix = isNetlify ? '' : '/blog';  // Use '/blog' only on GitHub Pages
+
+    // Pass through CMS files and images with the conditional prefix for images
     eleventyConfig.addPassthroughCopy("src/admin");
     eleventyConfig.addPassthroughCopy("src/_redirects");
-    
-    // Set the path prefix based on the environment
-    const pathPrefix = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
-    const pathPrefix2 = process.env.NETLIFY ? '' : '/blog'; // Use '/blog' only on GitHub Pages
 
+    // Ensure that images are copied with the correct pathPrefix
     eleventyConfig.addPassthroughCopy({
-        "src/images": pathPrefix2 + "/images",  // Apply the image prefix
+        "src/images": pathPrefix + "/images",  // Apply the image prefix
     });
 
     // Add "posts" collection
@@ -24,6 +26,14 @@ module.exports = function (eleventyConfig) {
     // Add custom date filter
     eleventyConfig.addFilter("date", (dateObj, format = "yyyy-MM-dd") => {
         return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(format);
+    });
+
+    // Modify image paths in markdown files
+    eleventyConfig.addFilter("imagePathPrefix", (url) => {
+        if (url.startsWith("/images/")) {
+            return pathPrefix + url;
+        }
+        return url;  // No change if the URL doesn't match the expected pattern
     });
 
     return {
